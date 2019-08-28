@@ -1,0 +1,16 @@
+1.初始化用来产生中断的GPIO,将其设置为中断线
+2.初始化EXTI
+3.配置NVIC （先设置优先级组）（NVIC_IRQChannel项不能用|，只能一个一个来！！！！）
+	内核外设常用优先级配置函数
+        void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+4.编写中断服务函数(函数名都在startup_stm32f10x_hd.s)
+如
+void EXTI0_IRQHandler(void)
+{
+	if(EXTI_GetITStatus(EXTI_Line0)!=RESET) //查看中断标志
+	{
+		LED_G_TOGGLE;                     //中断处理
+		EXTI_ClearITPendingBit(EXTI_Line0); //清中断
+	}
+}
+

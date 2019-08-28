@@ -1,0 +1,3 @@
+sprintf(string,"频率:%d Hz 占空比:%% %d ",frequency+1,duty_cycle);
+
+一定要在语句的%d后多加一个空格或别的字符不然程序不知道加上\0

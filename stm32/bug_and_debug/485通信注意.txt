@@ -1,0 +1,4 @@
+485通信芯片（7l184）需要设置传输方向
+#define RT_485_R   GPIO_ResetBits(RT_485_GPIO_PORT, RT_485_PIN)
+
+#define RT_485_T  GPIO_SetBits(RT_485_GPIO_PORT, RT_485_PIN)

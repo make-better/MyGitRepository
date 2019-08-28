@@ -1,0 +1,2 @@
+EEPROM写入一次数据后要等待内部存储完毕，在此过程中对外表现为高阻态，无法响应任何命令，需要单独编写一个函数等待EEPROM内部写入完成才能进行下一次操作
+写等待函数时不要用I2C_CheckEvent检查EEPROM的响应，使用I2C_GetFlag或I2C_ReadRegister
