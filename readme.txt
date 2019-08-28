@@ -5,4 +5,4 @@ Git tracks changes of files.
 $ git remote add origin git@github.com:make-better/MyGitRepository.git
 $ git remote add origin git@github.com:make-better/MyGitRepository.git
 Creating a new file
->>>>>>> a0134ad... fix bug 101
+
