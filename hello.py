@@ -1,1 +1,2 @@
-现在这里没有问题
+#coding:utf-8
+print "hello world!!!!!!!"
