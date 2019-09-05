@@ -3,37 +3,34 @@
 
 #include "stm32f10x.h"
 
-
+//存储捕获信号的信息的结构体
 typedef struct {
 	uint8_t Capture_FinishFlag; // 捕获结束标志位
 	uint8_t Capture_StartFlag; // 捕获开始标志位
 	uint16_t Capture_CNTValue; // 第一次捕获边沿时计数器的值
 	uint16_t Capture_CcrValue; // 捕获寄存器的值
-	uint16_t Capture_Period; // 自动重装载寄存器更新标志
 }TIM_ICUserValueType;
-
+/***************************************要使用几个通道在这里配置***********************************************/
 #define USE_TIM3							1
 #define USE_TIM3_CH1          1
 #define USE_TIM3_CH2          1
 #define USE_TIM3_CH3          1
 #define USE_TIM3_CH4          1
-//对TIM3的定义
-#define TIM3_IT_CCx						/**/TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4/**/
+#define TIM3_IT_CCx						/**/TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4/*注意要与上面的通道向对应*/
 
 
-#define USE_TIM4              0
+#define USE_TIM4              1
 #define USE_TIM4_CH1          1
 #define USE_TIM4_CH2          1
 #define USE_TIM4_CH3          1
 #define USE_TIM4_CH4          1
-//对TIM4的定义
-#define TIM4_IT_CCx						TIM_IT_CC1//|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4
-
+#define TIM4_IT_CCx						TIM_IT_CC1|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4
+/************************************************************************************************************/
 
 //对时钟的宏定义
 //TIM3
 #if (USE_TIM3_CH1|USE_TIM3_CH2)&(USE_TIM3_CH3|USE_TIM3_CH4)		
-	#define TIM3_GPIO_CLK 	RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOC 
+	#define TIM3_GPIO_CLK 	RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB 
 #elif (USE_TIM3_CH1|USE_TIM3_CH2 == 1)&&(USE_TIM3_CH3|USE_TIM3_CH4 == 0)
 	#define TIM3_GPIO_CLK 	RCC_APB2Periph_GPIOA
 #else
@@ -71,12 +68,6 @@ typedef struct {
 #define TIM4_CH4_PORT					GPIOB
 
 
-
-
-// 获取捕获寄存器值函数宏定义
-#define GENERAL_TIM_GetCapturex_FUN 	TIM_GetCapture1
-// 捕获信号极性函数宏定义
-#define GENERAL_TIM_OCxPolarityConfig_FUN TIM_OC1PolarityConfig
 // 测量的起始边沿
 #define GENERAL_TIM_STRAT_ICPolarity 	TIM_ICPolarity_Rising
 // 测量的结束边沿

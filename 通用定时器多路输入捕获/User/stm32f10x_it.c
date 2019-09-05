@@ -25,7 +25,6 @@
 #include "stm32f10x_it.h"
 #include "stm32f10x_tim.h"
 #include "bsp_general_Tim.h"
-#include "bsp_led.h"
 
 extern TIM_ICUserValueType TIM_ICUserValue[8];
 
@@ -164,11 +163,10 @@ void TIM6_IRQHandler(void)
 
 void TIM3_IRQHandler(void)
 {
-	// 采集波形的一个周期内发生了寄存器溢出，暂时不处理
 	 if ( TIM_GetITStatus ( TIM3, TIM_IT_Update) != RESET )
 	{
 		
-		 TIM_ClearITPendingBit ( TIM3, TIM_FLAG_Update );
+		TIM_ClearITPendingBit ( TIM3, TIM_FLAG_Update );
 	}
 #if USE_TIM3_CH1
 	// TIM3_CH1上升沿捕获中断
@@ -179,8 +177,6 @@ void TIM3_IRQHandler(void)
 				{
 					//记录首次捕获时计数器的值
 					TIM_ICUserValue[0].Capture_CNTValue = TIM3->CNT;							
-					// 自动重装载寄存器更新标志清 0
-					TIM_ICUserValue[0].Capture_Period = 0;
 					// 存捕获比较寄存器的值的变量的值清 0
 					TIM_ICUserValue[0].Capture_CcrValue = 0;
 					// 开始捕获标准置 1
@@ -206,7 +202,6 @@ void TIM3_IRQHandler(void)
 			if ( TIM_ICUserValue[1].Capture_StartFlag == 0 ) 
 				{
 					TIM_ICUserValue[1].Capture_CNTValue = TIM3->CNT;
-					TIM_ICUserValue[1].Capture_Period = 0;
 					TIM_ICUserValue[1].Capture_CcrValue = 0;
 					TIM_ICUserValue[1].Capture_StartFlag = 1;
 				}
@@ -226,7 +221,6 @@ void TIM3_IRQHandler(void)
 			if ( TIM_ICUserValue[2].Capture_StartFlag == 0 ) 
 				{
 					TIM_ICUserValue[2].Capture_CNTValue = TIM3->CNT;
-					TIM_ICUserValue[2].Capture_Period = 0;
 					TIM_ICUserValue[2].Capture_CcrValue = 0;
 					TIM_ICUserValue[2].Capture_StartFlag = 1;
 				}
@@ -246,7 +240,6 @@ void TIM3_IRQHandler(void)
 			if ( TIM_ICUserValue[3].Capture_StartFlag == 0 ) 
 				{
 					TIM_ICUserValue[3].Capture_CNTValue = TIM3->CNT;
-					TIM_ICUserValue[3].Capture_Period = 0;
 					TIM_ICUserValue[3].Capture_CcrValue = 0;
 					TIM_ICUserValue[3].Capture_StartFlag = 1;
 				}
@@ -262,6 +255,97 @@ void TIM3_IRQHandler(void)
 /**
   * @}
   */ 
+void TIM4_IRQHandler(void)
+{
+	// 采集波形的一个周期内发生了寄存器溢出，暂时不处理
+	 if ( TIM_GetITStatus ( TIM4, TIM_IT_Update) != RESET )
+	{
+		
+		TIM_ClearITPendingBit ( TIM4, TIM_FLAG_Update );
+	}
+#if USE_TIM4_CH1
+	// TIM4_CH1上升沿捕获中断
+	if ( TIM_GetITStatus (TIM4, TIM_IT_CC1 ) != RESET) 
+		{
+			// 第一次捕获
+			if ( TIM_ICUserValue[4].Capture_StartFlag == 0 )
+				{
+					//记录首次捕获时计数器的值
+					TIM_ICUserValue[4].Capture_CNTValue = TIM4->CNT;							
+					// 存捕获比较寄存器的值的变量的值清 0
+					TIM_ICUserValue[4].Capture_CcrValue = 0;
+					// 开始捕获标准置 1
+					TIM_ICUserValue[4].Capture_StartFlag = 1;
+				}
+			// 下降沿捕获中断
+			else { // 第二次捕获
+					// 获取捕获比较寄存器的值减去上一次计数器的值，这个值就是捕获到的高电平的时间的值
+					TIM_ICUserValue[4].Capture_CcrValue =	TIM_GetCapture1(TIM4)-TIM_ICUserValue[4].Capture_CNTValue;
+					// 开始捕获标志清 0
+					TIM_ICUserValue[4].Capture_StartFlag = 0;
+					// 捕获完成标志置 1
+					TIM_ICUserValue[4].Capture_FinishFlag = 1;
+					}
+			 TIM_ClearITPendingBit (TIM4,TIM_IT_CC1);
+		}
+#endif
+		
+#if USE_TIM4_CH2
+	// TIM4_CH2上升沿捕获中断
+	if ( TIM_GetITStatus (TIM4, TIM_IT_CC2 ) != RESET) 
+		{
+			if ( TIM_ICUserValue[5].Capture_StartFlag == 0 ) 
+				{
+					TIM_ICUserValue[5].Capture_CNTValue = TIM4->CNT;
+					TIM_ICUserValue[5].Capture_CcrValue = 0;
+					TIM_ICUserValue[5].Capture_StartFlag = 1;
+				}
+			else {
+					TIM_ICUserValue[5].Capture_CcrValue =	TIM_GetCapture2(TIM4)-TIM_ICUserValue[5].Capture_CNTValue;		
+					TIM_ICUserValue[5].Capture_StartFlag = 0;
+					TIM_ICUserValue[5].Capture_FinishFlag = 1;
+					}
+			 TIM_ClearITPendingBit (TIM4,TIM_IT_CC2);
+		}
+#endif
 
+#if USE_TIM4_CH3
+	// TIM4_CH3上升沿捕获中断
+	  if ( TIM_GetITStatus (TIM4, TIM_IT_CC3 ) != RESET)
+		{
+			if ( TIM_ICUserValue[6].Capture_StartFlag == 0 ) 
+				{
+					TIM_ICUserValue[6].Capture_CNTValue = TIM4->CNT;
+					TIM_ICUserValue[6].Capture_CcrValue = 0;
+					TIM_ICUserValue[6].Capture_StartFlag = 1;
+				}
+			else {
+					TIM_ICUserValue[6].Capture_CcrValue =	TIM4->CCR3-TIM_ICUserValue[6].Capture_CNTValue;		
+					TIM_ICUserValue[6].Capture_StartFlag = 0;
+					TIM_ICUserValue[6].Capture_FinishFlag = 1;
+					}
+			 TIM_ClearITPendingBit (TIM4,TIM_IT_CC3);
+		}
+#endif
+		
+#if USE_TIM4_CH4
+	// TIM4_CH4上升沿捕获中断
+	if ( TIM_GetITStatus (TIM4, TIM_IT_CC4 ) != RESET) 
+		{
+			if ( TIM_ICUserValue[7].Capture_StartFlag == 0 ) 
+				{
+					TIM_ICUserValue[7].Capture_CNTValue = TIM4->CNT;
+					TIM_ICUserValue[7].Capture_CcrValue = 0;
+					TIM_ICUserValue[7].Capture_StartFlag = 1;
+				}
+			else {
+					TIM_ICUserValue[7].Capture_CcrValue =	TIM_GetCapture4(TIM4)-TIM_ICUserValue[7].Capture_CNTValue;		
+					TIM_ICUserValue[7].Capture_StartFlag = 0;
+					TIM_ICUserValue[7].Capture_FinishFlag = 1;
+					}
+			 TIM_ClearITPendingBit (TIM4,TIM_IT_CC4);
+		}
+#endif
+}
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

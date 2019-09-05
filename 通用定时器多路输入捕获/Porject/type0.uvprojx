@@ -438,16 +438,6 @@
               <FilePath>..\User\stm32f10x_it.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\BSP\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_basic_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\BSP\bsp_basic_tim.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_general_Tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\BSP\bsp_general_Tim.c</FilePath>
@@ -458,9 +448,9 @@
               <FilePath>..\User\BSP\bsp_usart.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_general_Tim2.c</FileName>
+              <FileName>bsp_output_Tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\BSP\bsp_general_Tim2.c</FilePath>
+              <FilePath>..\User\BSP\bsp_output_Tim.c</FilePath>
             </File>
           </Files>
         </Group>

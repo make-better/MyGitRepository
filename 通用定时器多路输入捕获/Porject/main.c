@@ -1,7 +1,6 @@
 #include "stm32f10x.h"
-#include "bsp_led.h"
 #include "bsp_general_Tim.h"
-#include "bsp_general_Tim2.h"
+#include "bsp_output_Tim.h"
 #include "bsp_usart.h"
 
 void delay(uint32_t n)
@@ -11,7 +10,6 @@ void delay(uint32_t n)
 int main(void)
 {
 	USART_Config();
-	LED_Configer();
   TIM_Init(); 
 	TIM_OutPut_Init();
 	printf("\r\n输入捕获实验\r\n");
