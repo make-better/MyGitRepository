@@ -1,0 +1,55 @@
+枚举过程：
+USB主机检测的USB设备插入，USB设备复位（设置地址为0）
+USB主机使USB设备再次复位并向地址0发送获取设备描述符请求（仅一次，8字节）
+USB主机再次获取设备描述符（主机知道最大包长度）
+USB主机获取配置描述符
+主机读取配置集合，有些设备之间获取配置描述符集合
+{
+  配置描述符
+  接口描述符
+  类特殊描述符（如果有）
+  端点描述符
+}配置集合
+如果有字符串描述符，获取它
+
+
+
+
+USB1.1协议中的标准描述符有
+设备描述符 Device Descriptor（包含厂商VID,产品PID）
+配置描述符 Configuration Descriptor
+接口描述符 Interface Descriptor
+端点描述符 Endpoint Descriptor
+字符串描述符 String Descriptor
+USB2.0协议中增加了两个信道描述符
+Device Qualifier Descriptor
+Other Speed Configuration Descriptor
+一个USB设备只有一个设备描述符，它决定了该设备有多少种配置，
+每种配置都有一个配置描述符，它定义了该配置有多少个接口，
+每个接口都有一个接口描述符，它定义了该接口有多少个端点，
+每个端点都有一个端点描述符，它定义了该端点的大小、类型等；
+如果有类特殊描述符，它跟在相应的接口描述符之后
+
+
+
+USB传输时以包为单位，一个包由几个域组成
+传输时把包组合成事务才能传输，一个实物通常由两三个包组成：令牌包、数据包、握手包
+.令牌包用来启动一个事务，总是由主机发送
+.数据包传送数据，传输方向由令牌包指定
+.握手包的发送者通常为数据接受者，当数据接收正确后，发送握手包，
+设备也可以使用NAK握手包表示数据还未准备好
+USB有4种传输类型：批量传输、等时传输、中断传输、控制传输。
+
+端点0是每个USB设备都必须具备的默认控制端点，它一上电就存在且可用，
+描述符和主机发送的一些命令都是通过端点0传输的。非0端点只有在Set Config
+之后才能使用。
+
+usbh_core.c中的函数
+usbh_status_enum host_state_polling_fun (usb_core_handle_struct *pudev, 
+                                         usbh_host_struct *puhost, 
+                                         void *pustate)
+*pudev表示USB设备的指针它是
+在usb_core.h中
+usb_core_handle_struct结构体中的
+usb_core_cfgs_struct结构体 cfg 的
+（uint8_t）core_id表示id

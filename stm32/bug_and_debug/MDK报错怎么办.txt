@@ -1,0 +1,77 @@
+报错：在指定的文件路径下找不到AXF文件。
+办法：指定它的路径：Alt+F7出现“options for target"，选择"output"，点击“select Folder objects....”选择你的AXF文件，一般它在你的复制的工程文件夹里能找到。在“Name of Executable“编辑框里填写你找到的*.AXF文件名。
+
+
+
+报错：
+JLink - Cortex-M Error: STM32F10x_512.FLM
+---------------------------
+Cannot Load Flash Programming Algorithm !
+---------------------------
+办法：alt+F7 进入options->utilitys->settings 可以看到Programming Algorithm和RAM for Algorithm
+      解决办法是：将Max JTAG clock 降低（在debug->settings）
+
+
+
+报错：
+
+---------------------------
+JLink - Cortex-M Error
+---------------------------
+No Cortex-M Device found in JTAG chain.
+Please check the JTAG cable and the connected devices.
+---------------------------
+---------------------------
+礦ision3
+---------------------------
+Error: Flash Download failed  -  Target DLL has been cancelled
+---------------------------
+
+原因：
+
+跟系统板有关，跟JTAG无关（不用烧写JTAG）。
+
+烧录的程序关闭了JTAG功能，复用了JTAG的接口，导致JTAG不能正常使用。这事，就需要使用串口下载一个程序，此程序没有关闭JTAG即可，然后就可以正常重新使用JTAG（描述的是办法一）。
+
+办法：
+
+办法一：
+
+1.找到BOOT1和BOOT0，把BOOT1拉低，BOOT0拉高至3.3V。
+
+2.重新下载程序，刷掉FLASH。
+
+3.把BOOT0再次拉低会原来的状态就OK啦。
+
+办法二：
+
+擦除芯片代码也能恢复JTAG口功能即，从开始--SEGGER--JLink ARM--打开J-flash ARm（找到安装的J-Link驱动程序，本人用的是SEGGER公司的Jlink连接器，安装的是V4.12驱动程序）--菜单Options--project settings--CPU--选择你的芯片型号--Target interface--选SWD--OK--再选Target选项--connect--然后再选Erase chip即可
+
+注：我用的stm32最小系统板上，BOOT1电路上就是接的GND，BOOT0倒是可以通过跳线选择上电3.3v或者接GND。
+
+
+
+
+Error: Flash Download failed  -  Target DLL has been cancelled
+办法一：
+是因为目标板的芯片处于休眠的状态，在尝试连接目标板时候也会出现报错Internal command error Flash download failed target dll has been can的现象，解决办法是使目标板退出休眠，即按住reset键再下载程序，看到USB通讯灯闪后一小会儿(自己把握)后放开reset就能看到程序下载进去了，不行就多试几次，成功一次后面就正常了http://user.qzone.qq.com/121657026/blog/#!app=2&via=QZ.HashRefresh&pos=1350055666
+
+办法二：
+
+alt+F7 debug 选择j-link 打开setting ，发现没有serial No ，所以重装了j-link驱动。
+
+关于此现象的实验：
+
+等一段时间就行了。初步测试结果为：调整断电顺序不能解决此问题。确定不是电源问题。怀疑可能ulink开机壳放放电就行了？
+选错了工程，怀疑ulink故障与这个有关。
+
+
+
+可以看看这个 -> 
+
+http://wenku.baidu.com/link?url=x7oocrLPZGpmmPY_HrvR7JEp7pTBYXX6lST7ZDi8-7roFmHTojPGfkEFv1xcSf83VTgTSIgMneqnXn_u0_24ID352QjjaWwpkrJ3RpCeWE7
+--------------------- 
+作者：白玉汤 
+来源：CSDN 
+原文：https://blog.csdn.net/ysmz4/article/details/21889137 
+版权声明：本文为博主原创文章，转载请附上博文链接！

@@ -1,0 +1,6 @@
+1.SysTick_Config(uint32_t ticks)开启滴答定时器ticks为重装载值
+2.重要寄存器
+CTRL SysTick 控制及状态寄存器 （置1中断）
+LOAD SysTick 重装载数值寄存器
+VAL SysTick 当前数值寄存器      （到0CTRL置1）
+CALIB SysTick 校准数值寄存器

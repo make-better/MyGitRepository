@@ -1,0 +1,1 @@
+想要用串口和printf，不光要配置好串口和重定向fputc，还需要在target中开启Use MicroLIB
