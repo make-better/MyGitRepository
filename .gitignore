@@ -45,6 +45,10 @@
 # Kernel Module Compile Results
 *.mod*
 *.cmd
+
+# ²Ö¿â
+FrequencyCheck
+
 .tmp_versions/
 modules.order
 Module.symvers
