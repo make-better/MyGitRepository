@@ -5,6 +5,7 @@
 
 //存储捕获信号的信息的结构体
 typedef struct {
+	uint8_t Time_OutFlag;				//捕获超时标志
 	uint8_t Capture_FinishFlag; // 捕获结束标志位
 	uint8_t Capture_StartFlag; // 捕获开始标志位
 	uint16_t Capture_CNTValue; // 第一次捕获边沿时计数器的值

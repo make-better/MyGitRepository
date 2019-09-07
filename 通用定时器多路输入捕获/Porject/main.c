@@ -15,7 +15,7 @@ int main(void)
 	printf("\r\n输入捕获实验\r\n");
 	while(1)
 	{	
-		delay(0xff);
+		delay(0xffffff);
 		PWM_IC_Print();
 	}
 }

@@ -253,12 +253,17 @@ void PWM_IC_Print(void)
 	{
 		if(TIM_ICUserValue[i].Capture_FinishFlag == 1) 
 		{
+			//超时判断
+			if(TIM_ICUserValue[i].Time_OutFlag == 1)
+				continue;
+			
 			// 计算一个周期的计数器的值
 			fre = (TIM_ICUserValue[i].Capture_CcrValue+1);
+			//滤波器
 			if(fre>10000||fre<500)
 				continue;
 			// 打印频率
-			printf ( "\r\n %d号输入测得频率: %f hz\r\n",i,1/(fre/TIM_PscCLK));
+			printf ( "\r\n %d号输入测得频率: %f hz\r\n",i,(TIM_PscCLK/fre));
 			
 			TIM_ICUserValue[i].Capture_FinishFlag = 0;
 		}

@@ -163,9 +163,22 @@ void TIM6_IRQHandler(void)
 
 void TIM3_IRQHandler(void)
 {
+	// 采集波形的一个周期内发生了寄存器溢出，放弃本次采集
 	 if ( TIM_GetITStatus ( TIM3, TIM_IT_Update) != RESET )
-	{
+	{//假定超时
+		TIM_ICUserValue[0].Time_OutFlag = 1;
+		TIM_ICUserValue[1].Time_OutFlag = 1;
+		TIM_ICUserValue[2].Time_OutFlag = 1;
+		TIM_ICUserValue[3].Time_OutFlag = 1;
 		
+		TIM_ICUserValue[0].Capture_StartFlag = 0;
+		TIM_ICUserValue[0].Capture_FinishFlag = 0;
+		TIM_ICUserValue[1].Capture_StartFlag = 0;
+		TIM_ICUserValue[1].Capture_FinishFlag = 0;
+		TIM_ICUserValue[2].Capture_StartFlag = 0;
+		TIM_ICUserValue[2].Capture_FinishFlag = 0;
+		TIM_ICUserValue[3].Capture_StartFlag = 0;
+		TIM_ICUserValue[3].Capture_FinishFlag = 0;
 		TIM_ClearITPendingBit ( TIM3, TIM_FLAG_Update );
 	}
 #if USE_TIM3_CH1
@@ -190,6 +203,8 @@ void TIM3_IRQHandler(void)
 					TIM_ICUserValue[0].Capture_StartFlag = 0;
 					// 捕获完成标志置 1
 					TIM_ICUserValue[0].Capture_FinishFlag = 1;
+					//超时标志清除
+					TIM_ICUserValue[0].Time_OutFlag = 0;
 					}
 			 TIM_ClearITPendingBit (TIM3,TIM_IT_CC1);
 		}
@@ -209,7 +224,8 @@ void TIM3_IRQHandler(void)
 					TIM_ICUserValue[1].Capture_CcrValue =	TIM_GetCapture2(TIM3)-TIM_ICUserValue[1].Capture_CNTValue;		
 					TIM_ICUserValue[1].Capture_StartFlag = 0;
 					TIM_ICUserValue[1].Capture_FinishFlag = 1;
-					}
+					TIM_ICUserValue[1].Time_OutFlag = 0;
+				}
 			 TIM_ClearITPendingBit (TIM3,TIM_IT_CC2);
 		}
 #endif
@@ -228,7 +244,8 @@ void TIM3_IRQHandler(void)
 					TIM_ICUserValue[2].Capture_CcrValue =	TIM3->CCR3-TIM_ICUserValue[2].Capture_CNTValue;		
 					TIM_ICUserValue[2].Capture_StartFlag = 0;
 					TIM_ICUserValue[2].Capture_FinishFlag = 1;
-					}
+					TIM_ICUserValue[2].Time_OutFlag = 0;
+			}
 			 TIM_ClearITPendingBit (TIM3,TIM_IT_CC3);
 		}
 #endif
@@ -247,7 +264,8 @@ void TIM3_IRQHandler(void)
 					TIM_ICUserValue[3].Capture_CcrValue =	TIM_GetCapture4(TIM3)-TIM_ICUserValue[3].Capture_CNTValue;		
 					TIM_ICUserValue[3].Capture_StartFlag = 0;
 					TIM_ICUserValue[3].Capture_FinishFlag = 1;
-					}
+					TIM_ICUserValue[3].Time_OutFlag = 0;
+			}
 			 TIM_ClearITPendingBit (TIM3,TIM_IT_CC4);
 		}
 #endif
@@ -257,10 +275,22 @@ void TIM3_IRQHandler(void)
   */ 
 void TIM4_IRQHandler(void)
 {
-	// 采集波形的一个周期内发生了寄存器溢出，暂时不处理
+	// 采集波形的一个周期内发生了寄存器溢出，放弃本次采集
 	 if ( TIM_GetITStatus ( TIM4, TIM_IT_Update) != RESET )
 	{
+		TIM_ICUserValue[4].Time_OutFlag = 1;
+		TIM_ICUserValue[5].Time_OutFlag = 1;
+		TIM_ICUserValue[6].Time_OutFlag = 1;
+		TIM_ICUserValue[7].Time_OutFlag = 1;
 		
+		TIM_ICUserValue[4].Capture_StartFlag = 0;
+		TIM_ICUserValue[4].Capture_FinishFlag = 0;
+		TIM_ICUserValue[5].Capture_StartFlag = 0;
+		TIM_ICUserValue[5].Capture_FinishFlag = 0;
+		TIM_ICUserValue[6].Capture_StartFlag = 0;
+		TIM_ICUserValue[6].Capture_FinishFlag = 0;
+		TIM_ICUserValue[7].Capture_StartFlag = 0;
+		TIM_ICUserValue[7].Capture_FinishFlag = 0;
 		TIM_ClearITPendingBit ( TIM4, TIM_FLAG_Update );
 	}
 #if USE_TIM4_CH1
@@ -285,6 +315,8 @@ void TIM4_IRQHandler(void)
 					TIM_ICUserValue[4].Capture_StartFlag = 0;
 					// 捕获完成标志置 1
 					TIM_ICUserValue[4].Capture_FinishFlag = 1;
+					//清除超时标志
+					TIM_ICUserValue[4].Time_OutFlag = 0;
 					}
 			 TIM_ClearITPendingBit (TIM4,TIM_IT_CC1);
 		}
@@ -304,6 +336,7 @@ void TIM4_IRQHandler(void)
 					TIM_ICUserValue[5].Capture_CcrValue =	TIM_GetCapture2(TIM4)-TIM_ICUserValue[5].Capture_CNTValue;		
 					TIM_ICUserValue[5].Capture_StartFlag = 0;
 					TIM_ICUserValue[5].Capture_FinishFlag = 1;
+					TIM_ICUserValue[5].Time_OutFlag = 0;
 					}
 			 TIM_ClearITPendingBit (TIM4,TIM_IT_CC2);
 		}
@@ -323,6 +356,7 @@ void TIM4_IRQHandler(void)
 					TIM_ICUserValue[6].Capture_CcrValue =	TIM4->CCR3-TIM_ICUserValue[6].Capture_CNTValue;		
 					TIM_ICUserValue[6].Capture_StartFlag = 0;
 					TIM_ICUserValue[6].Capture_FinishFlag = 1;
+					TIM_ICUserValue[6].Time_OutFlag = 0;
 					}
 			 TIM_ClearITPendingBit (TIM4,TIM_IT_CC3);
 		}
@@ -342,6 +376,7 @@ void TIM4_IRQHandler(void)
 					TIM_ICUserValue[7].Capture_CcrValue =	TIM_GetCapture4(TIM4)-TIM_ICUserValue[7].Capture_CNTValue;		
 					TIM_ICUserValue[7].Capture_StartFlag = 0;
 					TIM_ICUserValue[7].Capture_FinishFlag = 1;
+					TIM_ICUserValue[7].Time_OutFlag = 0;
 					}
 			 TIM_ClearITPendingBit (TIM4,TIM_IT_CC4);
 		}
