@@ -21,27 +21,24 @@ Target DLL:      UL2CM3.DLL V1.155.8.0
 Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
-E:\MyGitRepository\MyFreeRTOS\Project\Fire_FreeRTOS.uvprojx
-Project File Date:  10/15/2019
+E:\MyGitRepository\MyFreeRTOS\current\Project\Fire_FreeRTOS.uvprojx
+Project File Date:  10/23/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'D:\keil\ARM\ARMCC\Bin'
 Build target 'Target 1'
 compiling main.c...
-..\freertos\Source\include\portmacro.h(32): warning:  #1-D: last line of file ends without a newline
-  #endif /*PORTMACRO_H*/
-..\freertos\Source\include\list.h(85): warning:  #1-D: last line of file ends without a newline
-  #endif //_LIST_H
-..\User\main.c: 2 warnings, 0 errors
-compiling list.c...
-..\freertos\Source\include\portmacro.h(32): warning:  #1-D: last line of file ends without a newline
-  #endif /*PORTMACRO_H*/
-..\freertos\Source\include\list.h(85): warning:  #1-D: last line of file ends without a newline
-  #endif //_LIST_H
-..\freertos\Source\list.c: 2 warnings, 0 errors
-linking...
-Program Size: Code=524 RO-data=224 RW-data=4 ZI-data=4276  
-".\Objects\Fire_FreeRTOS.axf" - 0 Error(s), 4 Warning(s).
+compiling task.c...
+..\freertos\Source\task.c(5): error:  #20: identifier "TaskHandle_t" is undefined
+  TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
+..\freertos\Source\task.c(13): error:  #20: identifier "TaskHandle_t" is undefined
+    TaskHandle_t xReturn;       
+..\freertos\Source\task.c(18): error:  #29: expected an expression
+                pxNewTCB->pxStack = ()
+..\freertos\Source\task.c(19): error:  #65: expected a ";"
+        }
+..\freertos\Source\task.c: 0 warnings, 4 errors
+".\Objects\Fire_FreeRTOS.axf" - 4 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -53,7 +50,7 @@ Package Vendor: ARM
    * Component: Startup Version: 1.0.1
 
 <h2>Collection of Component include folders:</h2>
-  E:\MyGitRepository\MyFreeRTOS\Project\RTE
+  E:\MyGitRepository\MyFreeRTOS\current\Project\RTE
   D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include
   D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include
 
@@ -65,6 +62,7 @@ Package Vendor: ARM
       Include file:  Device\ARM\ARMCM3\Include\ARMCM3.h
       Source file:   Device\ARM\ARMCM3\Source\ARM\startup_ARMCM3.s
       Source file:   Device\ARM\ARMCM3\Source\system_ARMCM3.c
+Target not created.
 </pre>
 </body>
 </html>

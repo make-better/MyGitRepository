@@ -440,6 +440,21 @@
               <FileType>5</FileType>
               <FilePath>..\freertos\Source\include\FreeRTOSConfig.h</FilePath>
             </File>
+            <File>
+              <FileName>task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\freertos\Source\task.c</FilePath>
+            </File>
+            <File>
+              <FileName>FreeRTOS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\freertos\Source\include\FreeRTOS.h</FilePath>
+            </File>
+            <File>
+              <FileName>projdefs.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\freertos\Source\include\projdefs.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

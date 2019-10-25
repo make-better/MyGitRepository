@@ -3,20 +3,48 @@
 *                包含的头文件
 *****************************************************
 */
+#include "FreeRTOS.h"
 #include "list.h"
 /*
 *****************************************************
 *                  全局变量
 *****************************************************
 */
-/*定义链表根节点*/
+/*定义任务控制块*/
+TCB_t Task1TCB;
+TCB_t Task2TCB;
 
-struct xLIST      List_Test;
 
-/*定义节点*/
-struct xLIST_ITEM    List_Item1;
-struct xLIST_ITEM    List_Item2;
-struct xLIST_ITEM    List_Item3;
+portBASE_TYPE flag1 = 0;
+portBASE_TYPE flag2 = 0;
+
+/*软件延时*/
+void delay(uint32_t count)
+{
+	for(;count!=0;count--);
+}
+/*任务1*/
+void Task1_Entry(void *p_arg)
+{
+	for(;;)
+	{
+		flag1 = 1;
+		delay(100);
+		flag1 = 0;
+		delay(100);
+	}
+}
+/*任务2*/
+void Task2_Entry(void *p_arg)
+{
+	for(;;)
+	{
+		flag2 = 1;
+		delay(100);
+		flag2 = 0;
+		delay(100);
+	}
+}
 /*
 ******************************************************
 *										main函数
@@ -24,29 +52,7 @@ struct xLIST_ITEM    List_Item3;
 */
 int main(void)
 {
-	/*链表根节点初始化*/
-	vListInitialise( &List_Test );
-	
-	/*节点1 初始化*/
-	vListInitialiseItem( &List_Item1 );
-	List_Item1.xItemValue = 1;
-	
-	/*节点2 初始化*/
-	vListInitialiseItem( &List_Item2 );
-	List_Item2.xItemValue = 2;
-	
-	/*节点3 初始化*/
-	vListInitialiseItem( &List_Item3 );
-	List_Item3.xItemValue = 3;
-	
-	/*将节点插入链表，按照升序排列*/
-	vListInsert(&List_Test,&List_Item2);
-	vListInsert(&List_Test,&List_Item1);
-	vListInsert(&List_Test,&List_Item3);
-	for(;;)
-	{
-		/*摸鱼*/
-	}
+
 }
 
 
