@@ -46,7 +46,7 @@ Bit 28 PENDSVSET:PendSV ÐüÆðÎ»*/
 #if( configUSE_16_BIT_TICKS == 1)
 
 typedef uint16_t TickType_t;
-#define portMAX_DELAY ( TickType_t )  0xffffffffUL
+#define portMAX_DELAY ( TickType_t )  0xffff
 
 #else
 

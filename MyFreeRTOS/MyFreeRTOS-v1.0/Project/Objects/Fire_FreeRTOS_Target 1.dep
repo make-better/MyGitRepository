@@ -4,7 +4,7 @@ I (..\freertos\Source\include\FreeRTOS.h)(0x5DC2D44C)
 I (..\freertos\Source\include\FreeRTOSConfig.h)(0x5DC02CB7)
 I (..\freertos\Source\include\projdefs.h)(0x5DB2FCA0)
 I (..\freertos\Source\include\portable.h)(0x5DB993E8)
-I (..\freertos\Source\include\portmacro.h)(0x5DC4144A)
+I (..\freertos\Source\include\portmacro.h)(0x5DC40F2E)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\freertos\Source\include\list.h)(0x5DC025A2)
@@ -14,7 +14,7 @@ I (..\freertos\Source\include\FreeRTOS.h)(0x5DC2D44C)
 I (..\freertos\Source\include\FreeRTOSConfig.h)(0x5DC02CB7)
 I (..\freertos\Source\include\projdefs.h)(0x5DB2FCA0)
 I (..\freertos\Source\include\portable.h)(0x5DB993E8)
-I (..\freertos\Source\include\portmacro.h)(0x5DC4144A)
+I (..\freertos\Source\include\portmacro.h)(0x5DC40F2E)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\freertos\Source\include\list.h)(0x5DC025A2)
@@ -26,18 +26,18 @@ I (D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h)(0x55093C04)
 I (D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include\system_ARMCM3.h)(0x50B2CC4C)
 F (..\freertos\Source\list.c)(0x5DB050CA)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I..\freertos\Source\include -I..\freertos\Source\portable\RVDS\ARM_CM3 -I..\User-I E:\MyGitRepository\MyFreeRTOS\current\Project\RTE-I D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include-D__UVISION_VERSION="515" -D_RTE_ -DARMCM3-o .\objects\list.o --omf_browse .\objects\list.crf --depend .\objects\list.d)
 I (..\freertos\Source\include\list.h)(0x5DC025A2)
-I (..\freertos\Source\include\portmacro.h)(0x5DC4144A)
+I (..\freertos\Source\include\portmacro.h)(0x5DC40F2E)
 I (..\freertos\Source\include\FreeRTOSConfig.h)(0x5DC02CB7)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x5475F300)
-F (..\freertos\Source\include\portmacro.h)(0x5DC4144A)()
+F (..\freertos\Source\include\portmacro.h)(0x5DC40F2E)()
 F (..\freertos\Source\include\FreeRTOSConfig.h)(0x5DC02CB7)()
-F (..\freertos\Source\task.c)(0x5DC4296D)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I..\freertos\Source\include -I..\freertos\Source\portable\RVDS\ARM_CM3 -I..\User-I E:\MyGitRepository\MyFreeRTOS\current\Project\RTE-I D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include-D__UVISION_VERSION="515" -D_RTE_ -DARMCM3-o .\objects\task.o --omf_browse .\objects\task.crf --depend .\objects\task.d)
+F (..\freertos\Source\task.c)(0x5DC40F0A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -I..\freertos\Source\include -I..\freertos\Source\portable\RVDS\ARM_CM3 -I..\User-I E:\MyGitRepository\MyFreeRTOS\current\Project\RTE-I D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\keil\ARM\PACK\ARM\CMSIS\4.3.0\Device\ARM\ARMCM3\Include-D__UVISION_VERSION="515" -D_RTE_ -DARMCM3-o .\objects\task.o --omf_browse .\objects\task.crf --depend .\objects\task.d)
 I (..\freertos\Source\include\FreeRTOS.h)(0x5DC2D44C)
 I (..\freertos\Source\include\FreeRTOSConfig.h)(0x5DC02CB7)
 I (..\freertos\Source\include\projdefs.h)(0x5DB2FCA0)
 I (..\freertos\Source\include\portable.h)(0x5DB993E8)
-I (..\freertos\Source\include\portmacro.h)(0x5DC4144A)
+I (..\freertos\Source\include\portmacro.h)(0x5DC40F2E)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\freertos\Source\include\list.h)(0x5DC025A2)
