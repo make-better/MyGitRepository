@@ -30,6 +30,7 @@ void vListInsertEnd( List_t * const pxList, ListItem_t * const pxNewListItem)
 	pxNewListItem->pxNext = pxIndex;
 	pxNewListItem->pxPrevious = pxIndex->pxPrevious;
 	pxIndex->pxPrevious->pxNext = pxNewListItem;
+	pxIndex->pxPrevious = pxNewListItem;
 	
 	/*记住该节点所在的链表*/
 	pxNewListItem->pvContainer = (void *)pxList;

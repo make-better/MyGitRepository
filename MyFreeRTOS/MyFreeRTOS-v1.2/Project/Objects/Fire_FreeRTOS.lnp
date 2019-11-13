@@ -1,0 +1,11 @@
+--cpu Cortex-M3
+".\objects\main.o"
+".\objects\port.o"
+".\objects\list.o"
+".\objects\task.o"
+".\objects\startup_armcm3.o"
+".\objects\system_armcm3.o"
+--library_type=microlib --strict --scatter ".\Objects\Fire_FreeRTOS.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\Fire_FreeRTOS.map" -o .\Objects\Fire_FreeRTOS.axf
