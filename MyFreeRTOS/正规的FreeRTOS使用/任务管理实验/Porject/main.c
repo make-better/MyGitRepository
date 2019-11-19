@@ -7,7 +7,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "bsp_led.h"
-
+#include "bsp_key.h"
 /*
 **********************************************************************************************
 *																			任务句柄
@@ -17,8 +17,8 @@
 static TaskHandle_t AppTaskCreate_Handle = NULL;
 /* LED1任务句柄 */
 static TaskHandle_t LED1_Task_Handle = NULL;	
-/* LED2任务句柄 */
-static TaskHandle_t LED2_Task_Handle = NULL;	
+/* 按键扫描任务句柄 */
+static TaskHandle_t KEY_Task_Handle = NULL;	
 
 /*
 **********************************************************************************************
@@ -34,7 +34,7 @@ static TaskHandle_t LED2_Task_Handle = NULL;
 
 static void BSP_Init(void);
 static void LED1_Task(void* parameter);
-static void LED2_Task(void* parameter);
+static void KEY_Task(void* parameter);
 static void AppTaskCreate(void);
 /*
 **********************************************************************************************
@@ -78,7 +78,8 @@ static void BSP_Init(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	/*LED初始化*/
 	LED_Configer();
-	
+	/*按键初始化*/
+	Key_Configer();
 	/*串口初始化*/
 	USART_Config();
 }
@@ -99,18 +100,25 @@ static void LED1_Task(void* parameter)
 	}
 }
  /** 
- * 使LED以300ms的间隔闪烁
+ * k1 k2 按键扫描
  * @param[in]   *parameter  
  * @retval VOID
  */ 
-static void LED2_Task(void* parameter)
+static void KEY_Task(void* parameter)
 {
 	while(1)
 	{
-		LED_R(ON);
-		vTaskDelay(300);
-		LED_R(OFF);
-		vTaskDelay(300);
+		if(ON == Key_Scan(KEY1_GPIO_PORT,KEY1_GPIO_PIN))
+		{/*key1 被按下*/
+			printf("挂起LED1任务\n");
+			vTaskSuspend(LED1_Task_Handle);/*挂起任务LED1*/
+		}
+		if(ON == Key_Scan(KEY2_GPIO_PORT,KEY2_GPIO_PIN))
+		{/*key2 被按下*/
+			printf("恢复LED1任务\n");
+			vTaskResume(LED1_Task_Handle);/*挂起任务LED1*/
+		}
+		vTaskDelay(20);/*延时*/
 	}
 }
  /** 
@@ -135,16 +143,16 @@ static void AppTaskCreate(void)
 		printf("LED1_Task任务创建失败\n");
 	
 	/*创建LED2_Task任务*/
-	xReturn = xTaskCreate((TaskFunction_t) LED2_Task,  //任务函数
-	                      (const char *) "LED2_Task",  //任务名称
+	xReturn = xTaskCreate((TaskFunction_t) KEY_Task,  //任务函数
+	                      (const char *) "KEY_Task",  //任务名称
 												(uint16_t) 512,                 //堆栈大小
 												(void *)NULL,                   //任务参数
-												(UBaseType_t) 3,                //任务优先级
-												(TaskHandle_t *)&LED2_Task_Handle);
-	if(NULL != LED2_Task_Handle)
-		printf("LED2_Task任务创建成功\n");
+												(UBaseType_t) 1,                //任务优先级
+												(TaskHandle_t *)&KEY_Task_Handle);
+	if(NULL != KEY_Task_Handle)
+		printf("KEY_Task任务创建成功\n");
 	else
-		printf("LED2_Task任务创建失败\n");
+		printf("KEY_Task任务创建失败\n");
 	
 	vTaskDelete(AppTaskCreate_Handle); /*删除AppTaskCreate*/
 	
