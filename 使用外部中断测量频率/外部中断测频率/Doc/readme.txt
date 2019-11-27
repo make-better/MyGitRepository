@@ -1,0 +1,4 @@
+尝试定义一个计时周期为0.5ms的基本定时器和8个外部中断
+8个外部中断每检测到一个上升沿就计数freCountx++
+基本定时器每次溢出时计算freCountx*2传入全局变量frequencex
+之后将freCountx清零。
